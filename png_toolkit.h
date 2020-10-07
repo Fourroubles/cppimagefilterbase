@@ -3,7 +3,6 @@
 
 #include <string>
 #include <map>
-//#include <memory>
 #include "stb_image.h"
 
 struct image_data
@@ -21,7 +20,7 @@ public:
         WrongFormat,
         Ok
     };
-
+	void FilterRed();
     png_toolkit();
     ~png_toolkit();
     bool load( std::string const &pictureName );
