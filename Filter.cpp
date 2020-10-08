@@ -19,9 +19,12 @@ void RedFilter::RedPainting(image_data &imgData, const WorkFile qq) {
 		for (int i = 0; i < imgData.h; ++i) {
 			for (int j = 0; j < imgData.w; ++j) {
 				if (i >= y1 && i <= y2 && j >= x1 && j <= x2) {
-					*(p) = (uint8_t)255.0;         // red
-					*(p + 1) = (uint8_t)0.0;
-					*(p + 2) = (uint8_t)0.0;
+					*(p) = 255.0;         // red
+					*(p + 1) = 0.0;
+					*(p + 2) = 0.0;
+					if (imgData.compPerPixel == 4) {
+						*(p + 3) = 1.0;
+					}
 				}
 				
 				p += imgData.compPerPixel;
