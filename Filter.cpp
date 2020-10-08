@@ -16,16 +16,16 @@ void RedFilter::RedPainting(image_data &imgData, const WorkFile qq) {
 	}
 		size_t img_size = imgData.w *imgData.h;
 		unsigned char *p = imgData.pixels;
-		for (int i = 0; i < imgData.h; ++i) {
-			for (int j = 0; j < imgData.w; ++j) {
-				if (i >= y1 && i <= y2 && j >= x1 && j <= x2) {
+		p += (y1 * x1) * imgData.compPerPixel;
+		for (int i = y1; i < y2; ++i) {
+			for (int j = x1; j < x2; ++j) {
 					*(p) = (uint8_t)255;         // red
 					*(p + 1) = (uint8_t)0;
 					*(p + 2) = (uint8_t)0;
-				}
 				
 				p += imgData.compPerPixel;
 			}
+			p += (imgData.w - x1 - x2) * imgData.compPerPixel;
 		}
 	/*	for (int i = 0; i < imgData.w *imgData.h; p += imgData.compPerPixel, ++i) {
 			if(i*imgData.h + imgData.w && i<=x2)
