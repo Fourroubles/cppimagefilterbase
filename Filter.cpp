@@ -18,9 +18,9 @@ void RedFilter::RedPainting(image_data &imgData, const WorkFile qq) {
 		for (int i = y1; i < y2; ++i) {
 			for (int j = x1; j < x2; ++j) {
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
-					imgData.pixels[ptr + 0] = (uint8_t)255;         // red
-					imgData.pixels[ptr + 1] = (uint8_t)0;
-					imgData.pixels[ptr + 2] = (uint8_t)0;
+					imgData.pixels[ptr + 0] = (unsigned char)255;         // red
+					imgData.pixels[ptr + 1] = (unsigned char)0;
+					imgData.pixels[ptr + 2] = (unsigned char)0;
 			}
 		}
 	/*	for (int i = 0; i < imgData.w *imgData.h; p += imgData.compPerPixel, ++i) {
