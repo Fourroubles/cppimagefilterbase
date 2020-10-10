@@ -2,23 +2,23 @@
 
 void RedFilter::RedPainting(image_data &imgData, const WorkFile qq) {
 	int x1 = 0,x2 = imgData.w,y1= 0,y2= imgData.h;
-	if (qq.u != 0) {
-		x1 = imgData.w / qq.u;
-	}
+	//if (qq.u != 0) {
+	//	x1 = imgData.w / qq.u;
+	//}
 	if (qq.b != 0) {
 		x2 = imgData.w / qq.b;
 	}
-	if (qq.l != 0) {
+	/*if (qq.l != 0) {
 		y1 = imgData.h / qq.l;
-	}
+	}*/
 	if (qq.r != 0) {
 		y2 = imgData.h / qq.r;
 	}
 		size_t img_size = imgData.w *imgData.h;
 		unsigned char *p = imgData.pixels;
-		p += (y1 * x1) * imgData.compPerPixel;
+		p += (y1*imgData.w + x1) * imgData.compPerPixel;
 		for (int i = y1; i < y2; ++i) {
-			for (int j = x1; j < x2; ++j) {
+			for (int j = (i*imgData.w) + x1; j < (i*imgData.w) + x2; ++j) {
 					*(p) = (uint8_t)255;         // red
 					*(p + 1) = (uint8_t)0;
 					*(p + 2) = (uint8_t)0;
