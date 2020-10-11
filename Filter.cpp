@@ -61,10 +61,10 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 int ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
 	for (int k = i - 2; k < i + 3; ++k) {
-		if (k<CoordinateUsingFilter[0] || k>CoordinateUsingFilter[1])
+		if (k<CoordinateUsingFilter[0] || k>CoordinateUsingFilter[1]-1)
 			continue;
 		for (int h = j - 2; h < j + 3; ++h) {
-			if (h<CoordinateUsingFilter[2] || h>CoordinateUsingFilter[3])
+			if (h<CoordinateUsingFilter[2] || h>CoordinateUsingFilter[3] - 1)
 				continue;
 
 			intensity.push_back(imgData.pixels[(k*imgData.w + h)*imgData.compPerPixel]);
