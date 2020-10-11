@@ -8,6 +8,6 @@
 class WorkFile {
 public:
 	std::string FilterName;
-	int u, l, b, r;
+	int up, left, back, right;
 	void OutPutFile(const std::string &config);
 };

@@ -6,6 +6,6 @@ void WorkFile::OutPutFile(const std::string &config) {
 		std::cout << "File not open!";
 		exit(0);
 	}
-	file >> FilterName >> u >> l >> b >> r;
+	file >> FilterName >> up >> left >> back >> right;
 	file.close();
 }
