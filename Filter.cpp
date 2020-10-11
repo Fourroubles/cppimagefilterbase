@@ -46,11 +46,40 @@ void RedFilter::RedPainting(image_data &imgData) {
 		}
 }
 
+void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
+			int ptr = (i*imgData.w + j)*imgData.compPerPixel;
+			int intensity = (3 * imgData.pixels[ptr + 0] + 6 * imgData.pixels[ptr + 1] + imgData.pixels[ptr + 2]) / 10;
+			imgData.pixels[ptr + 0] = (unsigned char)intensity;
+			imgData.pixels[ptr + 1] = (unsigned char)intensity;
+			imgData.pixels[ptr + 2] = (unsigned char)intensity;
+		}
+	}
+}
+
+void ThresholdFilter::ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData) {
+	CoordinateUsingFilter.push_back(ColcualteUpCoordinate(imgData, ConfigCoordinate));
+	CoordinateUsingFilter.push_back(ColcualteBackCoordinate(imgData, ConfigCoordinate));
+	CoordinateUsingFilter.push_back(ColcualteLeftCoordinate(imgData, ConfigCoordinate));
+	CoordinateUsingFilter.push_back(ColcualteRightCoordinate(imgData, ConfigCoordinate));
+}
+
+void ThresholdFilter::ThresholdPainting(image_data &imgData) {
+
+}
+
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 	if (ConfigData.FilterName == "Red") {
 		RedFilter red;
 		Filter &filter = red;
 		red.ColcualteCoordinate(ConfigData, imgData);
 		filter.RedPainting(imgData);
+	}
+	if (ConfigData.FilterName == "Threshold") {
+		BlackWhiteFilter BW;
+		ThresholdFilter threshold;
+		threshold.ColcualteCoordinate(ConfigData, imgData);
+		BW.BlackWhitePainting(imgData, threshold.CoordinateUsingFilter);
 	}
 }
