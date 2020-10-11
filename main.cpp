@@ -8,25 +8,20 @@
 
 int main(int argc, char *argv[])
 {
-    // toolkit filter_name base_pic_name sudent_tool student_pic_name limitPix limitMSE
-    // toolkit near test images!
     try
     {
         if (argc != 4)
             throw "Not enough arguments";
 
         png_toolkit studTool;
-		WorkFile tmp;
-		
-		image_data ss;
-		RedFilter red(tmp, ss);
-		Filter &gg = red;
+		SelectionFilter start;
+		WorkFile data;
+		image_data MassPixel;
         studTool.load(argv[2]);
-		tmp.OutPutFile(argv[1]);
-		ss = studTool.getPixelData();
-		red.RedPainting(ss);
+		data.OutPutFile(argv[1]);
+		MassPixel = studTool.getPixelData();
+		start.Selection(data, MassPixel);
         studTool.save(argv[3]);
-		
     }
     catch (const char *str)
     {

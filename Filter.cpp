@@ -28,7 +28,7 @@ int Filter::ColcualteRightCoordinate(image_data &imgData, const WorkFile ConfigC
 		return imgData.w / ConfigCoordinate.right;
 }
 
-RedFilter::RedFilter(WorkFile ConfigCoordinate, image_data &imgData) {
+void RedFilter::ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData) {
 	CoordinateUsingFilter.push_back(ColcualteUpCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteBackCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteLeftCoordinate(imgData, ConfigCoordinate));
@@ -44,4 +44,13 @@ void RedFilter::RedPainting(image_data &imgData) {
 					imgData.pixels[ptr + 2] = (unsigned char)0;
 			}
 		}
+}
+
+void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
+	if (ConfigData.FilterName == "Red") {
+		RedFilter red;
+		Filter &filter = red;
+		red.ColcualteCoordinate(ConfigData, imgData);
+		filter.RedPainting(imgData);
+	}
 }

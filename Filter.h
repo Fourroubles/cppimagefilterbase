@@ -16,8 +16,13 @@ public:
 
 class RedFilter: public Filter {
 public:
-	RedFilter(WorkFile ConfigCoordinate, image_data &imgData);
+	void ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData);
 	virtual void RedPainting(image_data &imgData);
 private:
 	std::vector<int> CoordinateUsingFilter;
+};
+
+class SelectionFilter {
+public:
+	void Selection(WorkFile ConfigData, image_data &imgData);
 };
