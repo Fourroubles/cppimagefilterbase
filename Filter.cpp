@@ -28,7 +28,7 @@ int Filter::ColcualteRightCoordinate(image_data &imgData, const WorkFile ConfigC
 		return imgData.w / ConfigCoordinate.right;
 }
 
-void RedFilter::ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData) {
+void Filter::ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData, std::vector<int> &CoordinateUsingFilter) {
 	CoordinateUsingFilter.push_back(ColcualteUpCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteBackCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteLeftCoordinate(imgData, ConfigCoordinate));
@@ -58,28 +58,50 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 	}
 }
 
-void ThresholdFilter::ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData) {
-	CoordinateUsingFilter.push_back(ColcualteUpCoordinate(imgData, ConfigCoordinate));
-	CoordinateUsingFilter.push_back(ColcualteBackCoordinate(imgData, ConfigCoordinate));
-	CoordinateUsingFilter.push_back(ColcualteLeftCoordinate(imgData, ConfigCoordinate));
-	CoordinateUsingFilter.push_back(ColcualteRightCoordinate(imgData, ConfigCoordinate));
+int ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
+	std::vector<int> intensity;
+	for (int k = i - 2; k < i + 3; ++k) {
+		for (int h = j - 2; h < j + 3; ++h) {
+			if (k<CoordinateUsingFilter[0] || k>CoordinateUsingFilter[1] || h<CoordinateUsingFilter[2] || h>CoordinateUsingFilter[3])
+				continue;
+
+			intensity.push_back(imgData.pixels[(k*imgData.w + h)*imgData.compPerPixel]);
+
+		}
+	}
+
+	std::sort(intensity.begin(), intensity.end());
+	if (imgData.pixels[(i*imgData.w + j)*imgData.compPerPixel] < intensity[intensity.size() / 2])
+		return 0;
+	return 1;
 }
 
 void ThresholdFilter::ThresholdPainting(image_data &imgData) {
-
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
+			if (CalculateMediana(CoordinateUsingFilter, imgData, i, j) == 0) {
+				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
+				imgData.pixels[ptr + 0] = (unsigned char)0;
+				imgData.pixels[ptr + 1] = (unsigned char)0;
+				imgData.pixels[ptr + 2] = (unsigned char)0;
+			}
+		}
+	}
 }
 
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 	if (ConfigData.FilterName == "Red") {
 		RedFilter red;
 		Filter &filter = red;
-		red.ColcualteCoordinate(ConfigData, imgData);
+		red.ColcualteCoordinate(ConfigData, imgData, red.CoordinateUsingFilter);
 		filter.RedPainting(imgData);
 	}
 	if (ConfigData.FilterName == "Threshold") {
 		BlackWhiteFilter BW;
 		ThresholdFilter threshold;
-		threshold.ColcualteCoordinate(ConfigData, imgData);
+		Filter &filter = threshold;
+		filter.ColcualteCoordinate(ConfigData, imgData, threshold.CoordinateUsingFilter);
 		BW.BlackWhitePainting(imgData, threshold.CoordinateUsingFilter);
+		filter.ThresholdPainting(imgData);
 	}
 }
