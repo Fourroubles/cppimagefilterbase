@@ -20,7 +20,6 @@ public:
         WrongFormat,
         Ok
     };
-	void FilterRed();
     png_toolkit();
     ~png_toolkit();
     bool load( std::string const &pictureName );

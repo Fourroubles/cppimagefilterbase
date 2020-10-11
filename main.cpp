@@ -17,13 +17,14 @@ int main(int argc, char *argv[])
 
         png_toolkit studTool;
 		WorkFile tmp;
-		RedFilter red;
-		Filter &gg = red;
+		
 		image_data ss;
+		RedFilter red(tmp, ss);
+		Filter &gg = red;
         studTool.load(argv[2]);
 		tmp.OutPutFile(argv[1]);
 		ss = studTool.getPixelData();
-		red.RedPainting(ss, tmp);
+		red.RedPainting(ss);
         studTool.save(argv[3]);
 		
     }
