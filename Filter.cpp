@@ -61,10 +61,10 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 int ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
 	for (int k = i - 2; k < i + 3; ++k) {
-		if (k<CoordinateUsingFilter[0] || k>CoordinateUsingFilter[1]-1)
+		if (k<=CoordinateUsingFilter[0] || k>CoordinateUsingFilter[1]-1)
 			continue;
 		for (int h = j - 2; h < j + 3; ++h) {
-			if (h<CoordinateUsingFilter[2] || h>CoordinateUsingFilter[3] - 1)
+			if (h<=CoordinateUsingFilter[2] || h>CoordinateUsingFilter[3] - 1)
 				continue;
 
 			intensity.push_back(imgData.pixels[(k*imgData.w + h)*imgData.compPerPixel]);
@@ -100,17 +100,13 @@ void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 		filter.RedPainting(imgData);
 	}
 	if (ConfigData.FilterName == "Threshold") {
-		unsigned int start_time = clock(); // начальное время
-	// здесь должен быть фрагмент кода, время выполнения которого нужно измерить
-		
+	
 		BlackWhiteFilter BW;
 		ThresholdFilter threshold;
 		Filter &filter = threshold;
 		filter.ColcualteCoordinate(ConfigData, imgData, threshold.CoordinateUsingFilter);
 		BW.BlackWhitePainting(imgData, threshold.CoordinateUsingFilter);
 		filter.ThresholdPainting(imgData);
-		unsigned int end_time = clock(); // конечное время
-		unsigned int search_time = end_time - start_time;
-		std::cout << search_time/60000;
+	
 	}
 }
