@@ -4,6 +4,7 @@
 #include "WorkFile.h"
 #include <vector>
 #include <algorithm>
+#include <ctime>
 
 class Filter {
 public:
