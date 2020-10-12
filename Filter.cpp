@@ -66,6 +66,8 @@ int ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, im
 		for (int h = j - 2; h < j + 3; ++h) {
 			if (h<CoordinateUsingFilter[2] || h>CoordinateUsingFilter[3] - 1)
 				continue;
+			if (k == i && h == j)
+				continue;
 
 			intensity.push_back(imgData.pixels[(k*imgData.w + h)*imgData.compPerPixel]);
 
@@ -92,18 +94,18 @@ void ThresholdFilter::ThresholdPainting(image_data &imgData) {
 }
 
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
-	if (ConfigData.FilterName == "Red") {
+	/*if (ConfigData.FilterName == "Red") {
 		RedFilter red;
 		Filter &filter = red;
 		red.ColcualteCoordinate(ConfigData, imgData, red.CoordinateUsingFilter);
 		filter.RedPainting(imgData);
 	}
-	if (ConfigData.FilterName == "Threshold") {
+	if (ConfigData.FilterName == "Threshold") {*/
 		BlackWhiteFilter BW;
 		ThresholdFilter threshold;
 		Filter &filter = threshold;
 		filter.ColcualteCoordinate(ConfigData, imgData, threshold.CoordinateUsingFilter);
 		BW.BlackWhitePainting(imgData, threshold.CoordinateUsingFilter);
 		filter.ThresholdPainting(imgData);
-	}
+	/*}*/
 }
