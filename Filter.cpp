@@ -61,12 +61,12 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 bool ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
 	for (int k = i - 2; k <= i + 2; ++k) {
-		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]){}
+		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]-1){}
 		else
 			continue;
 
 		for (int h = j - 2; h <= j + 2; ++h) {
-			if (k >= CoordinateUsingFilter[2] && k < CoordinateUsingFilter[3]){}
+			if (k >= CoordinateUsingFilter[2] && k < CoordinateUsingFilter[3]-1){}
 			else
 				continue;
 
@@ -77,31 +77,30 @@ bool ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, c
 
 	std::sort(intensity.begin(), intensity.end());
 	if (imgData.pixels[(i*imgData.w + j)*imgData.compPerPixel] < intensity[intensity.size() / 2])
-		return false;
+		return 0;
 	intensity.clear();
-	return true;
+	return 1;
 }
 
 void ThresholdFilter::ThresholdPainting(image_data &imgData) {
-	std::vector<bool> lol;
-	int k = 0;
+	std::vector<int> lol;
 	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			lol.push_back(CalculateMediana(CoordinateUsingFilter, imgData, i, j));
 		}
 	}
+
 	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
-			if (lol[k] == false) {
-
+			if (lol[i*(CoordinateUsingFilter[1] - CoordinateUsingFilter[0]) +j] == 0) {
+				
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 				imgData.pixels[ptr + 0] = (unsigned char)0;
 				imgData.pixels[ptr + 1] = (unsigned char)0;
 				imgData.pixels[ptr + 2] = (unsigned char)0;
 			}
-			k++;
 		}
-		k++;
+		std::cout << 1;
 	}
 	lol.clear();
 }
