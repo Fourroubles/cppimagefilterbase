@@ -35,7 +35,7 @@ public:
 	virtual void ThresholdPainting(image_data &imgData);
 	std::vector<int> CoordinateUsingFilter;
 private:
-	int CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int i, int j);
+	bool CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int i, int j);
 };
 
 class SelectionFilter {
