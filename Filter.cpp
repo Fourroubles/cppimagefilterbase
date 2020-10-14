@@ -100,6 +100,7 @@ void ThresholdFilter::ThresholdPainting(image_data &imgData) {
 				imgData.pixels[ptr + 2] = (unsigned char)0;
 				
 			}
+			k++;
 		}
 	}
 	lol.clear();
