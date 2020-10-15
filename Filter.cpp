@@ -99,18 +99,18 @@ void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> Coordina
 
 void ThresholdFilter::ThresholdPainting(WorkFile ConfigData, image_data &imgData) {
 	BlackWhiteFilter BW;
-	Filter &filter = BW;
+	Filter filter;
 	filter.ColcualteCoordinate(ConfigData, imgData, CoordinateUsingFilter);
-	filter.BlackWhitePainting(imgData, CoordinateUsingFilter);
+	BW.BlackWhitePainting(imgData, CoordinateUsingFilter);
 	ChangePixel(imgData, CoordinateUsingFilter);
 }
 
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 	if (ConfigData.FilterName == "Red") {
 		RedFilter red;
-		Filter &filter = red;
+		/*Filter &filter = red;*/
 		red.ColcualteCoordinate(ConfigData, imgData, red.CoordinateUsingFilter);
-		filter.RedPainting(imgData);
+		red.RedPainting(imgData);
 	}
 	/*else  {
 		ThresholdFilter threshold;
