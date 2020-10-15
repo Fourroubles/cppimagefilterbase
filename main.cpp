@@ -27,9 +27,7 @@ int main(int argc, char *argv[])
     {
         std::cout << "Error: " << str << std::endl;
 		getchar();
-		_CrtDumpMemoryLeaks();
         return 1;
     }
-	_CrtDumpMemoryLeaks();
     return 0;
 }

@@ -34,29 +34,3 @@ image_data png_toolkit::getPixelData( void ) const
 {
     return imgData;
 }
-
-
-//void png_toolkit::FilterRed() {
-//	int width, height, channels;
-//	int desired_no_channels = 3;
-//	unsigned char *img = stbi_load("Pytin.jpg", &width, &height, &channels, 0);
-//	if (img == NULL) {
-//		printf("Error in loading the image\n");
-//		exit(1);
-//		getchar();
-//	}
-//	printf("Loaded image with a width of %dpx, a height of %dpx and %d channels\n", width, height, channels);
-//	size_t img_size = (width) * (height) * channels;
-//	unsigned char *p = img;
-//	unsigned char *sepia_img = (unsigned char *)malloc(img_size);
-//	for (int i = 0; i < height*width; p += channels, ++i) {
-//		if (i>=(0 + 0 * height) && (150 + 100 * height) >= i) {
-//			*(p) = (uint8_t)255.0;         // red
-//			*(p + 1) = (uint8_t)0.0;
-//			*(p + 2) = (uint8_t)0.0;
-//		}
-//	}
-//
-//	stbi_write_jpg("lutin.jpg", width, height, channels, img, 100);
-//	getchar();
-//}
