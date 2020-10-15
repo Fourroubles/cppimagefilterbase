@@ -80,7 +80,9 @@ bool ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, c
 
 void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter, const std::string &pictureName) {
 	image_data CopyPixel;
+	BlackWhiteFilter BW;
 	CopyPixel.pixels = stbi_load(pictureName.c_str(), &CopyPixel.w, &CopyPixel.h, &CopyPixel.compPerPixel, 0);
+	BW.BlackWhitePainting(CopyPixel, CoordinateUsingFilter);
 	/*CopyPixel = imgData;
 	CopyPixel.h = imgData.h;
 	CopyPixel.compPerPixel = imgData.compPerPixel;
