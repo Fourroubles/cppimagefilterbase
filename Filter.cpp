@@ -59,9 +59,9 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 std::vector<int> ThresholdFilter::Filling—ontainerIntensity(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
 	for (int k = i - 2; k <= i + 2; ++k) {
-		if (k >= CoordinateUsingFilter[0] && k <= CoordinateUsingFilter[1]) {
+		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
 			for (int h = j - 2; h <= j + 2; ++h) {
-				if (k >= CoordinateUsingFilter[2] && k <= CoordinateUsingFilter[3]) {
+				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
 					intensity.push_back(imgData.pixels[(k*imgData.w + h)*imgData.compPerPixel]);
 				}
 			}
@@ -78,17 +78,14 @@ bool ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, c
 	return true;
 }
 
-void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter, const std::string &pictureName) {
+void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
 	image_data CopyPixel;
-	BlackWhiteFilter BW;
-	CopyPixel.pixels = stbi_load(pictureName.c_str(), &CopyPixel.w, &CopyPixel.h, &CopyPixel.compPerPixel, 0);
-	BW.BlackWhitePainting(CopyPixel, CoordinateUsingFilter);
-	/*CopyPixel = imgData;
+	CopyPixel = imgData;
 	CopyPixel.h = imgData.h;
 	CopyPixel.compPerPixel = imgData.compPerPixel;
 	CopyPixel.w = imgData.w;
-	CopyPixel.pixels = new stbi_uc[imgData.w*imgData.h*imgData.compPerPixel];*/
-	//memcpy(CopyPixel.pixels, imgData.pixels, CopyPixel.w*CopyPixel.h*CopyPixel.compPerPixel);
+	CopyPixel.pixels = new stbi_uc[imgData.w*imgData.h*imgData.compPerPixel];
+	memcpy(CopyPixel.pixels, imgData.pixels, imgData.w*imgData.h*imgData.compPerPixel);
 	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			if (CalculateMediana(CoordinateUsingFilter, CopyPixel, i, j) == false) {
@@ -97,18 +94,18 @@ void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> Coordina
 			}
 		}
 	}
-	/*delete[] CopyPixel.pixels;*/
+	delete[] CopyPixel.pixels;
 }
 
-void ThresholdFilter::ThresholdPainting(WorkFile ConfigData, image_data &imgData, const std::string &pictureName) {
+void ThresholdFilter::ThresholdPainting(WorkFile ConfigData, image_data &imgData) {
 	BlackWhiteFilter BW;
 	Filter filter;
 	filter.ColcualteCoordinate(ConfigData, imgData, CoordinateUsingFilter);
 	BW.BlackWhitePainting(imgData, CoordinateUsingFilter);
-	ChangePixel(imgData, CoordinateUsingFilter, pictureName);
+	ChangePixel(imgData, CoordinateUsingFilter);
 }
 
-void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData, const std::string &pictureName) {
+void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 	if (ConfigData.FilterName == "Red") {
 		RedFilter red;
 		Filter filter = red;
@@ -117,6 +114,6 @@ void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData, const 
 	}
 	if(ConfigData.FilterName == "Threshold"){
 		ThresholdFilter threshold;
-		threshold.ThresholdPainting(ConfigData, imgData, pictureName);
+		threshold.ThresholdPainting(ConfigData, imgData);
 	}
 }

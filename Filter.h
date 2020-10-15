@@ -34,15 +34,15 @@ public:
 
 class ThresholdFilter : public Filter {
 public:
-	/*virtual*/ void ThresholdPainting(WorkFile ConfigData, image_data &imgData, const std::string &pictureName);
+	/*virtual*/ void ThresholdPainting(WorkFile ConfigData, image_data &imgData);
 	std::vector<int> CoordinateUsingFilter;
 private:
 	bool CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int i, int j);
 	std::vector<int> Filling—ontainerIntensity(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
-	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter, const std::string &pictureName);
+	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter);
 };
 
 class SelectionFilter {
 public:
-	void Selection(WorkFile ConfigData, image_data &imgData, const std::string &pictureName);
+	void Selection(WorkFile ConfigData, image_data &imgData);
 };
