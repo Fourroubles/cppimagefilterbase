@@ -1,10 +1,10 @@
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include "png_toolkit.h"
 #include "WorkFile.h"
 #include "Filter.h"
-
 
 int main(int argc, char *argv[])
 {
@@ -20,14 +20,16 @@ int main(int argc, char *argv[])
         studTool.load(argv[2]);
 		data.OutPutFile(argv[1]);
 		MassPixel = studTool.getPixelData();
-		start.Selection(data, MassPixel);
+		start.Selection(data, MassPixel, argv[2]);
         studTool.save(argv[3]);
     }
     catch (const char *str)
     {
         std::cout << "Error: " << str << std::endl;
 		getchar();
+		_CrtDumpMemoryLeaks();
         return 1;
     }
+	_CrtDumpMemoryLeaks();
     return 0;
 }
