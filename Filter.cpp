@@ -85,7 +85,7 @@ void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> Coordina
 	CopyPixel.compPerPixel = imgData.compPerPixel;
 	CopyPixel.w = imgData.w;
 	CopyPixel.pixels = new stbi_uc[imgData.w*imgData.h*imgData.compPerPixel];
-	memcpy(CopyPixel.pixels, imgData.pixels, imgData.w*imgData.h*imgData.compPerPixel);
+	//memcpy(CopyPixel.pixels, imgData.pixels, imgData.w*imgData.h*imgData.compPerPixel);
 	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			if (CalculateMediana(CoordinateUsingFilter, CopyPixel, i, j) == false) {
