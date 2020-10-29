@@ -13,15 +13,15 @@ int main(int argc, char *argv[])
         if (argc != 4)
             throw "Not enough arguments";
 
-        png_toolkit studTool;
+		png_toolkit studTool;
 		SelectionFilter start;
 		WorkFile data;
 		image_data MassPixel;
-        studTool.load(argv[2]);
+		studTool.load(argv[2]);
 		data.OutPutFile(argv[1]);
 		MassPixel = studTool.getPixelData();
-		start.Selection(data, MassPixel, argv[2]);
-        studTool.save(argv[3]);
+		start.Selection(data, MassPixel);
+		studTool.save(argv[3]);
     }
     catch (const char *str)
     {
