@@ -38,7 +38,7 @@ public:
 	std::vector<int> CoordinateUsingFilter;
 private:
 	bool CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int i, int j);
-	std::vector<int> Filling—ontainerIntensity(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
+	std::vector<int> FillingqontainerIntensity(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
 	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter);
 };
 
