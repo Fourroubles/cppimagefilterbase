@@ -48,7 +48,7 @@ public:
 	/*virtual*/ void BlurPainting(Data ConfigData, image_data &imgData);
 	std::vector<int> CoordinateUsingFilter;
 private:
-	std::vector<int>Ñonvolutionñount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
+	std::vector<int>qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
 
 };
 
