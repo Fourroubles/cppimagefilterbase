@@ -54,7 +54,9 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 			int g = imgData.pixels[ptr + 1];
 			int b = imgData.pixels[ptr + 2];
 			int intensity = (3 * r + 6 * g + b) / 10;
-			imgData.pixels[ptr + 0] = imgData.pixels[ptr + 1] = imgData.pixels[ptr + 2] = (unsigned char)intensity;
+			imgData.pixels[ptr + 0] = (unsigned char)intensity;
+			imgData.pixels[ptr + 1] = (unsigned char)intensity;
+			imgData.pixels[ptr + 2] = (unsigned char)intensity;
 		}
 	}
 }
@@ -76,11 +78,8 @@ std::vector<int> ThresholdFilter::FillingqontainerIntensity(std::vector<int> Coo
 bool ThresholdFilter::CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
 	std::vector<int> intensity = FillingqontainerIntensity(CoordinateUsingFilter, imgData, i, j);
 	std::sort(intensity.begin(), intensity.end());
-	if (imgData.pixels[(i*imgData.w + j)*imgData.compPerPixel] < intensity[intensity.size() / 2]) {
-		intensity.clear();
+	if (imgData.pixels[(i*imgData.w + j)*imgData.compPerPixel] < intensity[intensity.size() / 2]) 
 		return false;
-	}
-	intensity.clear();
 	return true;
 }
 
