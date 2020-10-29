@@ -50,7 +50,10 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			int ptr = (i*imgData.w + j)*imgData.compPerPixel;
-			int intensity = (3 * imgData.pixels[ptr + 0] + 6 * imgData.pixels[ptr + 1] + imgData.pixels[ptr + 2]) / 10;
+			int r = imgData.pixels[ptr + 0];
+			int g = imgData.pixels[ptr + 1];
+			int b = imgData.pixels[ptr + 2];
+			int intensity = (3 * r + 6 * g + b) / 10;
 			imgData.pixels[ptr + 0] = imgData.pixels[ptr + 1] = imgData.pixels[ptr + 2] = (unsigned char)intensity;
 		}
 	}
@@ -58,9 +61,9 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 
 std::vector<int> ThresholdFilter::FillingqontainerIntensity(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
-	for (int k = i - 2; k <= i + 2; ++k) {
+	for (int k = i - 2; k < i + 2; ++k) {
 		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
-			for (int h = j - 2; h <= j + 2; ++h) {
+			for (int h = j - 2; h < j + 2; ++h) {
 				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
 					intensity.push_back(imgData.pixels[(k*imgData.w + h)*imgData.compPerPixel]);
 				}
