@@ -42,6 +42,16 @@ private:
 	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter);
 };
 
+
+class BlurFilter : public Filter {
+public:
+	/*virtual*/ void BlurPainting(Data ConfigData, image_data &imgData);
+	std::vector<int> CoordinateUsingFilter;
+private:
+	std::vector<int>Ñonvolutionñount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
+
+};
+
 class SelectionFilter {
 public:
 	void Selection(WorkFile ConfigData, image_data &imgData);

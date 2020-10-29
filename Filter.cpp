@@ -113,6 +113,55 @@ void ThresholdFilter::ThresholdPainting(Data ConfigData, image_data &imgData) {
 	ChangePixel(imgData, CoordinateUsingFilter);
 }
 
+std::vector<int> BlurFilter::Ñonvolutionñount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
+	std::vector<int> intensity;
+	int r = 0, g = 0, b = 0;
+	for (int k = i - 1; k <= i + 1; ++k) {
+		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
+			for (int h = j - 1; h <= j + 1; ++h) {
+				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
+					int ptr = (k*imgData.w + h)*imgData.compPerPixel;
+					r += imgData.pixels[ptr + 0];
+					g += imgData.pixels[ptr + 1];
+					b += imgData.pixels[ptr + 2];
+				}
+			}
+		}
+	}
+	intensity.push_back(r / 9);
+	intensity.push_back(g / 9);
+	intensity.push_back(b / 9);
+	return intensity;
+}
+
+void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
+	Filter filter;
+	filter.ColcualteCoordinate(ConfigData, imgData, CoordinateUsingFilter);
+
+	std::vector<int> ptq;
+	image_data CopyPixel;
+	CopyPixel = imgData;
+	CopyPixel.h = imgData.h;
+	CopyPixel.compPerPixel = imgData.compPerPixel;
+	CopyPixel.w = imgData.w;
+	int tmp = imgData.w*imgData.h*imgData.compPerPixel;
+	CopyPixel.pixels = new stbi_uc[tmp];
+	for (int i = 0; i < tmp; i++) {
+		CopyPixel.pixels[i] = imgData.pixels[i];
+	}
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
+			ptq = Ñonvolutionñount(CoordinateUsingFilter, CopyPixel, i, j);
+				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
+				imgData.pixels[ptr + 0] = ptq[0];
+				imgData.pixels[ptr + 1] = ptq[1];
+				imgData.pixels[ptr + 2] = ptq[2];;
+		}
+	}
+	delete[] CopyPixel.pixels;
+
+}
+
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 	for (auto tmp : ConfigData.MassData) {
 		if (tmp.FilterName == "Red") {
@@ -124,6 +173,10 @@ void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 		if(tmp.FilterName == "Threshold"){
 			ThresholdFilter threshold;
 			threshold.ThresholdPainting(tmp, imgData);
+		}
+		if (tmp.FilterName == "Blur") {
+			BlurFilter blur;
+			blur.BlurPainting(tmp, imgData);
 		}
 	}
 }
