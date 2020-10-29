@@ -114,14 +114,15 @@ void ThresholdFilter::ThresholdPainting(WorkFile ConfigData, image_data &imgData
 }
 
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
+	if (ConfigData.FilterName == "Threshold") {
+		ThresholdFilter threshold;
+		threshold.ThresholdPainting(ConfigData, imgData);
+	}
 	if (ConfigData.FilterName == "Red") {
 		RedFilter red;
 		Filter filter = red;
 		filter.ColcualteCoordinate(ConfigData, imgData, red.CoordinateUsingFilter);
 		red.RedPainting(imgData);
 	}
-	if(ConfigData.FilterName == "Threshold"){
-		ThresholdFilter threshold;
-		threshold.ThresholdPainting(ConfigData, imgData);
-	}
+	
 }
