@@ -14,11 +14,11 @@ public:
 	virtual void BlackWhitePainting(image_data &imgData, std::vector<int> CoordinateUsingFilter) {};
 	virtual void ThresholdPainting(WorkFile ConfigData, image_data &imgData) {};*/
 
-	int ColcualteUpCoordinate(image_data &imgData, const WorkFile ConfigCoordinate);
-	int ColcualteLeftCoordinate(image_data &imgData, const WorkFile ConfigCoordinate);
-	int ColcualteBackCoordinate(image_data &imgData, const WorkFile ConfigCoordinate);
-	int ColcualteRightCoordinate(image_data &imgData, const WorkFile ConfigCoordinate);
-	void ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData, std::vector<int> &CoordinateUsingFilter);
+	int ColcualteUpCoordinate(image_data &imgData, Data ConfigCoordinate);
+	int ColcualteLeftCoordinate(image_data &imgData, Data ConfigCoordinate);
+	int ColcualteBackCoordinate(image_data &imgData, Data ConfigCoordinate);
+	int ColcualteRightCoordinate(image_data &imgData, Data ConfigCoordinate);
+	void ColcualteCoordinate(Data ConfigCoordinate, image_data &imgData, std::vector<int> &CoordinateUsingFilter);
 };
 
 class RedFilter: public Filter {
@@ -34,7 +34,7 @@ public:
 
 class ThresholdFilter : public Filter {
 public:
-	/*virtual*/ void ThresholdPainting(WorkFile ConfigData, image_data &imgData);
+	/*virtual*/ void ThresholdPainting(Data ConfigData, image_data &imgData);
 	std::vector<int> CoordinateUsingFilter;
 private:
 	bool CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int i, int j);

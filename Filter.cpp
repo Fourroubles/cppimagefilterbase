@@ -1,34 +1,34 @@
 #include "Filter.h"
 
-int Filter::ColcualteUpCoordinate(image_data &imgData, const WorkFile ConfigCoordinate) {
+int Filter::ColcualteUpCoordinate(image_data &imgData, Data ConfigCoordinate) {
 	if (ConfigCoordinate.up == 0)
 		return 0;
 	else
 		return imgData.h / ConfigCoordinate.up;
 }
 
-int Filter::ColcualteLeftCoordinate(image_data &imgData, const WorkFile ConfigCoordinate) {
+int Filter::ColcualteLeftCoordinate(image_data &imgData, Data ConfigCoordinate) {
 	if (ConfigCoordinate.left == 0)
 		return 0;
 	else
 		return imgData.w / ConfigCoordinate.left;
 }
 
-int Filter::ColcualteBackCoordinate(image_data &imgData, const WorkFile ConfigCoordinate) {
+int Filter::ColcualteBackCoordinate(image_data &imgData, Data ConfigCoordinate) {
 	if (ConfigCoordinate.back == 0)
 		return 0;
 	else
 		return imgData.h / ConfigCoordinate.back;
 }
 
-int Filter::ColcualteRightCoordinate(image_data &imgData, const WorkFile ConfigCoordinate) {
+int Filter::ColcualteRightCoordinate(image_data &imgData, Data ConfigCoordinate) {
 	if (ConfigCoordinate.right == 0)
 		return 0;
 	else
 		return imgData.w / ConfigCoordinate.right;
 }
 
-void Filter::ColcualteCoordinate(WorkFile ConfigCoordinate, image_data &imgData, std::vector<int> &CoordinateUsingFilter) {
+void Filter::ColcualteCoordinate(Data ConfigCoordinate, image_data &imgData, std::vector<int> &CoordinateUsingFilter) {
 	CoordinateUsingFilter.push_back(ColcualteUpCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteBackCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteLeftCoordinate(imgData, ConfigCoordinate));
@@ -105,7 +105,7 @@ void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> Coordina
 	delete[] CopyPixel.pixels;
 }
 
-void ThresholdFilter::ThresholdPainting(WorkFile ConfigData, image_data &imgData) {
+void ThresholdFilter::ThresholdPainting(Data ConfigData, image_data &imgData) {
 	BlackWhiteFilter BW;
 	Filter filter;
 	filter.ColcualteCoordinate(ConfigData, imgData, CoordinateUsingFilter);
@@ -114,14 +114,16 @@ void ThresholdFilter::ThresholdPainting(WorkFile ConfigData, image_data &imgData
 }
 
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
-	if (ConfigData.FilterName == "Red") {
-		RedFilter red;
-		Filter filter = red;
-		filter.ColcualteCoordinate(ConfigData, imgData, red.CoordinateUsingFilter);
-		red.RedPainting(imgData);
-	}
-	if(ConfigData.FilterName == "Threshold"){
-		ThresholdFilter threshold;
-		threshold.ThresholdPainting(ConfigData, imgData);
+	for (auto tmp : ConfigData.MassData) {
+		if (tmp.FilterName == "Red") {
+			RedFilter red;
+			Filter filter = red;
+			filter.ColcualteCoordinate(tmp, imgData, red.CoordinateUsingFilter);
+			red.RedPainting(imgData);
+		}
+		if(tmp.FilterName == "Threshold"){
+			ThresholdFilter threshold;
+			threshold.ThresholdPainting(tmp, imgData);
+		}
 	}
 }

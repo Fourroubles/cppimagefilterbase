@@ -2,11 +2,11 @@
 
 void WorkFile::OutPutFile(const std::string &config) {
 	std::ifstream file(config);
-	//do
-	//{
-		file >> FilterName >> up >> left >> back >> right;
-	//} while (!file.eof());
+	Data tmp;
+	while (!file.eof())
+	{
+		file >> tmp.FilterName >> tmp.up >> tmp.left >> tmp.back >> tmp.right;
+		MassData.push_back(tmp);
+	} 
 	file.close();
-
-	std::cout << FilterName<<up<<left<<back<<right;
 }
