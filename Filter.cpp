@@ -113,7 +113,7 @@ void ThresholdFilter::ThresholdPainting(Data ConfigData, image_data &imgData) {
 	ChangePixel(imgData, CoordinateUsingFilter);
 }
 
-std::vector<int> BlurFilter::Ñonvolutionñount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
+std::vector<int> BlurFilter::qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
 	int r = 0, g = 0, b = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
@@ -151,7 +151,7 @@ void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
 	}
 	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
-			ptq = Ñonvolutionñount(CoordinateUsingFilter, CopyPixel, i, j);
+			ptq = qonvolutionqount(CoordinateUsingFilter, CopyPixel, i, j);
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 				imgData.pixels[ptr + 0] = ptq[0];
 				imgData.pixels[ptr + 1] = ptq[1];
