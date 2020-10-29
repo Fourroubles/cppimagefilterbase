@@ -53,7 +53,7 @@ void BlackWhiteFilter::BlackWhitePainting(image_data &imgData, std::vector<int> 
 			int r = imgData.pixels[ptr + 0];
 			int g = imgData.pixels[ptr + 1];
 			int b = imgData.pixels[ptr + 2];
-			int intensity = (3 * r + 6 * g + b) / 10;
+			int intensity = (3 * r + 6 * g + b) ;
 			imgData.pixels[ptr + 0] = (unsigned char)intensity;
 			imgData.pixels[ptr + 1] = (unsigned char)intensity;
 			imgData.pixels[ptr + 2] = (unsigned char)intensity;
