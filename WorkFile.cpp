@@ -7,7 +7,7 @@ void WorkFile::OutPutFile(const std::string &config) {
 	while (!file.eof()) {
 
 		file.getline(str, 150);
-		
+		FilterName.clear();
 		for (int i = 0; str[i] != '\n'; ++i) {
 			if (str[i] == ' ') {
 				
