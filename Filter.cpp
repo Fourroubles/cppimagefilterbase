@@ -153,9 +153,11 @@ void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			ptq = qonvolutionqount(CoordinateUsingFilter, CopyPixel, i, j);
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
-				imgData.pixels[ptr + 0] = ptq[0];
-				imgData.pixels[ptr + 1] = ptq[1];
-				imgData.pixels[ptr + 2] = ptq[2];;
+				imgData.pixels[ptr + 0] = (unsigned char)ptq[0];
+				imgData.pixels[ptr + 1] = (unsigned char)ptq[1];
+				imgData.pixels[ptr + 2] = (unsigned char)ptq[2];
+				std::cout << ptr<<" ";
+				
 		}
 	}
 	delete[] CopyPixel.pixels;
