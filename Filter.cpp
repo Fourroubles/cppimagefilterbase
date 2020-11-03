@@ -129,17 +129,16 @@ std::vector<int> BlurFilter::qonvolutionqount(std::vector<int> CoordinateUsingFi
 
 		}
 	}
-	//std::cout << r/9 << " ";
+	
 	intensit.push_back(r / 9);
 	intensit.push_back(g / 9);
 	intensit.push_back(b / 9);
-	//std::cout << intensity[0] << std::endl;
+	
 	return intensit;
 }
 
-void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
-	Filter filter;
-	filter.ColcualteCoordinate(ConfigData, imgData, CoordinateUsingFilter);
+void BlurFilter::ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
+	
 
 	
 	image_data CopyPixel;
@@ -157,15 +156,21 @@ void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
 			
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 				std::vector<int> ptq = qonvolutionqount(CoordinateUsingFilter, CopyPixel, i, j);
-				imgData.pixels[ptr + 0] = ptq[0];
-				imgData.pixels[ptr + 1] = ptq[1];
-				imgData.pixels[ptr + 2] = ptq[2];
+				imgData.pixels[ptr + 0] = (unsigned char)ptq[0];
+				imgData.pixels[ptr + 1] = (unsigned char)ptq[1];
+				imgData.pixels[ptr + 2] = (unsigned char)ptq[2];
 				//std::cout << ptq[0] << " " << ptq[1] << " " << ptq[2] << std::endl;
 				
 		}
 	}
 	delete[] CopyPixel.pixels;
 
+}
+
+void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
+	Filter filter;
+	filter.ColcualteCoordinate(ConfigData, imgData, CoordinateUsingFilter);
+	ChangePixel(imgData, CoordinateUsingFilter);
 }
 
 int EdgeFilter::qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
