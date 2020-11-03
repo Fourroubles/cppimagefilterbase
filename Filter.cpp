@@ -94,8 +94,8 @@ void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> Coordina
 	for (int i = 0; i < tmp; i++) {
 		CopyPixel.pixels[i] = imgData.pixels[i];
 	}
-	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
-		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]-1; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]-1; ++j) {
 			if (CalculateMediana(CoordinateUsingFilter, CopyPixel, i, j) == false) {
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 				imgData.pixels[ptr + 0] = imgData.pixels[ptr + 1] = imgData.pixels[ptr + 2] = (unsigned char)0;
