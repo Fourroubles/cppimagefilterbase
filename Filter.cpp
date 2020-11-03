@@ -94,8 +94,8 @@ void ThresholdFilter::ChangePixel(image_data &imgData, std::vector<int> Coordina
 	for (int i = 0; i < tmp; i++) {
 		CopyPixel.pixels[i] = imgData.pixels[i];
 	}
-	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]-1; ++i) {
-		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]-1; ++j) {
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			if (CalculateMediana(CoordinateUsingFilter, CopyPixel, i, j) == false) {
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 				imgData.pixels[ptr + 0] = imgData.pixels[ptr + 1] = imgData.pixels[ptr + 2] = (unsigned char)0;
@@ -117,9 +117,9 @@ std::vector<int> BlurFilter::qonvolutionqount(std::vector<int> CoordinateUsingFi
 	std::vector<int> intensity;
 	int r = 0, g = 0, b = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
-		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
+		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]-1) {
 			for (int h = j - 1; h <= j + 1; ++h) {
-				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
+				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]-1) {
 					int ptr = (k*imgData.w + h)*imgData.compPerPixel;
 					r += imgData.pixels[ptr + 0];
 					g += imgData.pixels[ptr + 1];
