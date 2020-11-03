@@ -114,7 +114,7 @@ void ThresholdFilter::ThresholdPainting(Data ConfigData, image_data &imgData) {
 }
 
 std::vector<int> BlurFilter::qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
-	std::vector<int> intensity;
+	std::vector<int> intensit;
 	int r = 0, g = 0, b = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
 		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
@@ -129,12 +129,12 @@ std::vector<int> BlurFilter::qonvolutionqount(std::vector<int> CoordinateUsingFi
 
 		}
 	}
-	//std::cout << r << " ";
-	intensity.push_back(r / 9);
-	intensity.push_back(g / 9);
-	intensity.push_back(b / 9);
+	//std::cout << r/9 << " ";
+	intensit.push_back(r / 9);
+	intensit.push_back(g / 9);
+	intensit.push_back(b / 9);
 	//std::cout << intensity[0] << std::endl;
-	return intensity;
+	return intensit;
 }
 
 void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
@@ -160,6 +160,7 @@ void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
 				imgData.pixels[ptr + 0] = ptq[0];
 				imgData.pixels[ptr + 1] = ptq[1];
 				imgData.pixels[ptr + 2] = ptq[2];
+				//std::cout << ptq[0] << " " << ptq[1] << " " << ptq[2] << std::endl;
 				
 		}
 	}
