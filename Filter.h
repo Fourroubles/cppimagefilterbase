@@ -52,6 +52,15 @@ private:
 
 };
 
+class EdgeFilter : public Filter {
+public:
+	/*virtual*/ void EdgePainting(Data ConfigData, image_data &imgData);
+	std::vector<int> CoordinateUsingFilter;
+private:
+	int qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
+	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter);
+};
+
 class SelectionFilter {
 public:
 	void Selection(WorkFile ConfigData, image_data &imgData);

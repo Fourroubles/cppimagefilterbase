@@ -167,6 +167,62 @@ void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
 
 }
 
+int EdgeFilter::qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j) {
+	int r = 0;
+	for (int k = i - 1; k <= i + 1; ++k) {
+		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
+			for (int h = j - 1; h <= j + 1; ++h) {
+				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
+					int ptr = (k*imgData.w + h)*imgData.compPerPixel;
+					if (k == i && h == j) {
+						r+=9* imgData.pixels[ptr + 0];
+					}
+					else
+					r -= imgData.pixels[ptr + 0];
+				}
+			}
+
+		}
+	}
+
+	if (r < 0)
+		r = 0;
+	if (r > 255)
+		r = 255;
+
+	return r;
+}
+
+
+void EdgeFilter::ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
+	image_data CopyPixel;
+	CopyPixel = imgData;
+	CopyPixel.h = imgData.h;
+	CopyPixel.compPerPixel = imgData.compPerPixel;
+	CopyPixel.w = imgData.w;
+	int tmp = imgData.w*imgData.h*imgData.compPerPixel;
+	CopyPixel.pixels = new stbi_uc[tmp];
+	for (int i = 0; i < tmp; i++) {
+		CopyPixel.pixels[i] = imgData.pixels[i];
+	}
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
+				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
+				imgData.pixels[ptr + 0] = imgData.pixels[ptr + 1] = imgData.pixels[ptr + 2] = (unsigned char)qonvolutionqount(CoordinateUsingFilter, CopyPixel, i, j);
+			
+		}
+	}
+	delete[] CopyPixel.pixels;
+}
+
+void EdgeFilter::EdgePainting(Data ConfigData, image_data &imgData) {
+	BlackWhiteFilter BW;
+	Filter filter;
+	filter.ColcualteCoordinate(ConfigData, imgData, CoordinateUsingFilter);
+	BW.BlackWhitePainting(imgData, CoordinateUsingFilter);
+	ChangePixel(imgData, CoordinateUsingFilter);
+}
+
 
 void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 	for (auto tmp : ConfigData.MassData) {
@@ -183,6 +239,10 @@ void SelectionFilter::Selection(WorkFile ConfigData, image_data &imgData) {
 		if (tmp.FilterName == "Blur") {
 			BlurFilter blur;
 			blur.BlurPainting(tmp, imgData);
+		}
+		if (tmp.FilterName == "Edge") {
+			EdgeFilter edge;
+			edge.EdgePainting(tmp, imgData);
 		}
 	}
 }
