@@ -117,9 +117,9 @@ std::vector<int> BlurFilter::qonvolutionqount(std::vector<int> CoordinateUsingFi
 	std::vector<int> intensity;
 	int r = 0, g = 0, b = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
-		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]-1) {
+		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
 			for (int h = j - 1; h <= j + 1; ++h) {
-				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]-1) {
+				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
 					int ptr = (k*imgData.w + h)*imgData.compPerPixel;
 					r += imgData.pixels[ptr + 0];
 					g += imgData.pixels[ptr + 1];
@@ -157,9 +157,9 @@ void BlurFilter::BlurPainting(Data ConfigData, image_data &imgData) {
 			
 				int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 				std::vector<int> ptq = qonvolutionqount(CoordinateUsingFilter, CopyPixel, i, j);
-				imgData.pixels[ptr + 0] = (unsigned char)ptq[0];
-				imgData.pixels[ptr + 1] = (unsigned char)ptq[1];
-				imgData.pixels[ptr + 2] = (unsigned char)ptq[2];
+				imgData.pixels[ptr + 0] = ptq[0];
+				imgData.pixels[ptr + 1] = ptq[1];
+				imgData.pixels[ptr + 2] = ptq[2];
 				
 		}
 	}
