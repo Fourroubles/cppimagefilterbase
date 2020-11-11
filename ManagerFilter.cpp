@@ -34,9 +34,9 @@ std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> Coordina
 	int mass = 0;
 	int red = 0, green = 0, blue = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
-		if (k >= CoordinateUsingFilter[0] + 100 && k < CoordinateUsingFilter[1] - 1) {
+		if (k >= CoordinateUsingFilter[0] + 10 && k < CoordinateUsingFilter[1] - 1) {
 			for (int h = j - 1; h <= j + 1; ++h) {
-				if (h >= CoordinateUsingFilter[2] + 100 && h < CoordinateUsingFilter[3] - 1) {
+				if (h >= CoordinateUsingFilter[2] + 10 && h < CoordinateUsingFilter[3] - 1) {
 					int ptr = (k*imgData.w + h)*imgData.compPerPixel;
 					red += imgData.pixels[ptr + 0];
 					green += imgData.pixels[ptr + 1];
