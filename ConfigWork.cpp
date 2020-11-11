@@ -27,13 +27,13 @@ Filter* configWork::createFilter(nameFilter name) {
 
 void configWork::detectFilter(std::vector<Data> massData) {
 	for (unsigned int i = 0; i < massData.size(); ++i) {
-		/*if (massData[i].FilterName == "Red")
+		if (massData[i].FilterName == "Red")
 			name.push_back(RED_FILTER);
 		else if (massData[i].FilterName == "Threshold") {
 			name.push_back(BLACK_WHITE_FILTER);
 			name.push_back(THRESHOLD_FILTER);
 		}
-		else*/ if (massData[i].FilterName == "Blur")
+		else if (massData[i].FilterName == "Blur")
 			name.push_back(BLUR_FILTER);
 		else if (massData[i].FilterName == "Edge") {
 			name.push_back(BLACK_WHITE_FILTER);
