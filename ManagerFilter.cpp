@@ -46,8 +46,10 @@ std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> Coordina
 			}
 
 		}
-		mass += 3;
 	}
+	if (red > 255)
+		red = 255;
+
 	intensity.push_back(red / 9);
 	intensity.push_back(green / 9);
 	intensity.push_back(blue / 9);
@@ -71,7 +73,6 @@ std::vector<int> ManagerEdgeFilter::calculateIntensity(std::vector<int> Coordina
 
 		}
 	}
-
 	if (intensity[0] < 0)
 		intensity[0] = 0;
 	if (intensity[0] > 255)
