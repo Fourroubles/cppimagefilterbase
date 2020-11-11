@@ -6,7 +6,7 @@ void WorkFile::OutPutFile(const std::string &config) {
 	while (!file.eof())
 	{
 		file >> tmp.FilterName >> tmp.up >> tmp.left >> tmp.back >> tmp.right;
-		MassData.push_back(tmp);
+		massData.push_back(tmp);
 	} 
 	file.close();
 }

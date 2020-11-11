@@ -2,67 +2,50 @@
 
 #include "png_toolkit.h"
 #include "WorkFile.h"
+#include "ManagerFilter.h"
 #include <vector>
-#include <algorithm>
 #include <ctime>
-
 
 
 class Filter {
 public:
-	/*virtual void RedPainting(image_data &imgData) {};
-	virtual void BlackWhitePainting(image_data &imgData, std::vector<int> CoordinateUsingFilter) {};
-	virtual void ThresholdPainting(WorkFile ConfigData, image_data &imgData) {};*/
-
-	int ColcualteUpCoordinate(image_data &imgData, Data ConfigCoordinate);
-	int ColcualteLeftCoordinate(image_data &imgData, Data ConfigCoordinate);
-	int ColcualteBackCoordinate(image_data &imgData, Data ConfigCoordinate);
-	int ColcualteRightCoordinate(image_data &imgData, Data ConfigCoordinate);
-	void ColcualteCoordinate(Data ConfigCoordinate, image_data &imgData, std::vector<int> &CoordinateUsingFilter);
+	virtual void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) = 0;
+	virtual ~Filter() {};
 };
 
-class RedFilter: public Filter {
+class Red : public Filter  {
 public:
-	/*virtual */void RedPainting(image_data &imgData);
-	std::vector<int> CoordinateUsingFilter;
+	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) override;
 };
 
-class BlackWhiteFilter: public Filter {
+class BlackWhite : public Filter {
 public:
-	/*virtual*/ void BlackWhitePainting(image_data &imgData, std::vector<int> CoordinateUsingFilter);
+	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) override;
 };
 
-class ThresholdFilter : public Filter {
-public:
-	/*virtual*/ void ThresholdPainting(Data ConfigData, image_data &imgData);
-	std::vector<int> CoordinateUsingFilter;
+class Threshold : public Filter {
 private:
-	bool CalculateMediana(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int i, int j);
-	std::vector<int> FillingqontainerIntensity(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
-	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter);
+	  image_data CopyPixel;
+	  std::vector<int> intensity;
+public:
+	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter)  override;
+	~Threshold() { delete[] CopyPixel.pixels; };
 };
 
-
-class BlurFilter : public Filter {
-public:
-	/*virtual*/
-	void BlurPainting(Data ConfigData, image_data &imgData);
-	std::vector<int> CoordinateUsingFilter;
+class Blur : public Filter {
 private:
-	std::vector<int>qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
-	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter);
+	image_data CopyPixel;
+	std::vector<int> intensity;
+public:
+	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) override;
+	~Blur() { delete[] CopyPixel.pixels; };
 };
 
-class EdgeFilter : public Filter {
-public:
-	/*virtual*/ void EdgePainting(Data ConfigData, image_data &imgData);
-	std::vector<int> CoordinateUsingFilter;
+class Edge : public Filter {
 private:
-	int qonvolutionqount(std::vector<int> CoordinateUsingFilter, const image_data &imgData, int  i, int j);
-	void ChangePixel(image_data &imgData, std::vector<int> CoordinateUsingFilter);
-};
-
-class SelectionFilter {
+	image_data CopyPixel;
+	std::vector<int> intensity;
 public:
-	void Selection(WorkFile ConfigData, image_data &imgData);
+	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) override;
+	~Edge() { delete[] CopyPixel.pixels; };
 };

@@ -13,6 +13,6 @@ typedef struct Data {
 
 class WorkFile {
 public:
-	std::vector<Data> MassData;
+	std::vector<Data> massData;
 	void OutPutFile(const std::string &config);
 };
