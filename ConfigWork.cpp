@@ -58,19 +58,19 @@ void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
 }
 
 int configWork::ColcualteUpCoordinate(image_data &imgData, Data ConfigCoordinate) {
-	return ConfigCoordinate.up != 0 ? imgData.h / ConfigCoordinate.up : 0;
+	return ConfigCoordinate.up != 0 ? imgData.h / abs(ConfigCoordinate.up) : 0;
 }
 
 int configWork::ColcualteLeftCoordinate(image_data &imgData, Data ConfigCoordinate) {
-	return ConfigCoordinate.left != 0 ? imgData.w / ConfigCoordinate.left : 0;
+	return ConfigCoordinate.left != 0 ? imgData.w / abs(ConfigCoordinate.left) : 0;
 }
 
 int configWork::ColcualteBackCoordinate(image_data &imgData, Data ConfigCoordinate) {
-	return ConfigCoordinate.back != 0 ? imgData.h / ConfigCoordinate.back : 0;
+	return ConfigCoordinate.back != 0 ? imgData.h / abs(ConfigCoordinate.back) : 0;
 }
 
 int configWork::ColcualteRightCoordinate(image_data &imgData, Data ConfigCoordinate) {
-	return ConfigCoordinate.right != 0 ? imgData.w / ConfigCoordinate.right : 0;
+	return ConfigCoordinate.right != 0 ? imgData.w / abs(ConfigCoordinate.right) : 0;
 }
 
 std::vector<int> configWork::ColcualteCoordinate(Data ConfigCoordinate, image_data &imgData) {
