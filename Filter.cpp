@@ -26,8 +26,8 @@ void BlackWhite::filter(image_data &imgData, std::vector<int> CoordinateUsingFil
 void Threshold::filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
 	ManagerFilter* manager = new ManagerThresholdFilter();
 	CopyPixel = ManagerFilter::copyImage(imgData);
-	for (int i = CoordinateUsingFilter[0]; i <= CoordinateUsingFilter[1]; ++i) {
-		for (int j = CoordinateUsingFilter[2]; j <= CoordinateUsingFilter[3]; ++j) {
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 			intensity = manager->calculateIntensity(CoordinateUsingFilter, CopyPixel, i, j);
 			if (imgData.pixels[ptr] < intensity[intensity.size() / 2]) {
@@ -41,7 +41,7 @@ void Blur::filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
 	ManagerFilter* manager = new ManagerBlurFilter();
 	CopyPixel = ManagerFilter::copyImage(imgData);
 	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
-		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
+		for (int j = CoordinateUsingFilter[2]; j <= CoordinateUsingFilter[3]; ++j) {
 			int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 			intensity = manager->calculateIntensity(CoordinateUsingFilter, CopyPixel, i, j);
 			imgData.pixels[ptr + 0] = (unsigned char)intensity[0];
