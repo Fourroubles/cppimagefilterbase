@@ -31,7 +31,6 @@ std::vector<int> ManagerThresholdFilter::calculateIntensity(std::vector<int> Coo
 
 std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
-	int mass = 0;
 	int red = 0, green = 0, blue = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
 		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
@@ -47,9 +46,9 @@ std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> Coordina
 
 		}
 	}
-	red /= 9;
-	green /= 9;
-	blue /= 9;
+	red /= 10;
+	green /= 10;
+	blue /= 10;
 	intensity.push_back(red);
 	intensity.push_back(green);
 	intensity.push_back(blue);
