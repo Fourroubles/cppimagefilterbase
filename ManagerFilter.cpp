@@ -31,6 +31,7 @@ std::vector<int> ManagerThresholdFilter::calculateIntensity(std::vector<int> Coo
 
 std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
 	std::vector<int> intensity;
+	int k = 0;
 	int red = 0, green = 0, blue = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
 		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
@@ -40,15 +41,16 @@ std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> Coordina
 					red += imgData.pixels[ptr + 0];
 					green += imgData.pixels[ptr + 1];
 					blue += imgData.pixels[ptr + 2];
+					k++;
 				}
 			}
 
 		}
 	}
 
-	intensity.push_back(red / 9);
-	intensity.push_back(green / 9);
-	intensity.push_back(blue / 9);
+	intensity.push_back(red / k);
+	intensity.push_back(green / k);
+	intensity.push_back(blue / k);
 	return intensity;
 }
 
@@ -60,9 +62,8 @@ std::vector<int> ManagerEdgeFilter::calculateIntensity(std::vector<int> Coordina
 			for (int h = j - 1; h <= j + 1; ++h) {
 				if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
 					int ptr = (k*imgData.w + h)*imgData.compPerPixel;
-					if (k == i && h == j) {
+					if (k == i && h == j) 
 						intensity[0] += 9 * imgData.pixels[ptr + 0];
-					}
 					else
 						intensity[0] -= imgData.pixels[ptr + 0];
 				}
