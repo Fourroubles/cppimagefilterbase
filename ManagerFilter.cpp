@@ -19,7 +19,7 @@ std::vector<int> ManagerThresholdFilter::calculateIntensity(std::vector<int> Coo
 		for (int k = i - 2; k <= i + 2; ++k) {
 			if (k >= CoordinateUsingFilter[0] && k <= CoordinateUsingFilter[1]) {
 				for (int h = j - 2; h <= j + 2; ++h) {
-					if (h >= CoordinateUsingFilter[2] && h <= CoordinateUsingFilter[3]) {
+					if (h >= CoordinateUsingFilter[2] && h < CoordinateUsingFilter[3]) {
 						intensity.push_back(imgData.pixels[(k*imgData.w + h)*imgData.compPerPixel]);
 					}
 				}
