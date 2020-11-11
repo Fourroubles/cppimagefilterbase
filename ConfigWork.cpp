@@ -79,5 +79,17 @@ std::vector<int> configWork::ColcualteCoordinate(Data ConfigCoordinate, image_da
 	CoordinateUsingFilter.push_back(ColcualteBackCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteLeftCoordinate(imgData, ConfigCoordinate));
 	CoordinateUsingFilter.push_back(ColcualteRightCoordinate(imgData, ConfigCoordinate));
+
+	if (CoordinateUsingFilter[0] > CoordinateUsingFilter[1]) {
+		int tmp = CoordinateUsingFilter[0];
+		CoordinateUsingFilter[0] = CoordinateUsingFilter[1];
+		CoordinateUsingFilter[1] = tmp;
+	}
+	if (CoordinateUsingFilter[2] > CoordinateUsingFilter[3]) {
+		int tmp1 = CoordinateUsingFilter[2];
+		CoordinateUsingFilter[2] = CoordinateUsingFilter[3];
+		CoordinateUsingFilter[3] = tmp1;
+	}
+
 	return CoordinateUsingFilter;
 }
