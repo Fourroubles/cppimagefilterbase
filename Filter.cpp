@@ -40,10 +40,10 @@ void Threshold::filter(image_data &imgData, std::vector<int> CoordinateUsingFilt
 void Blur::filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
 	ManagerFilter* manager = new ManagerBlurFilter();
 	CopyPixel = ManagerFilter::copyImage(imgData);
-	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]-100; ++i) {
-		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]-1000; ++j) {
+	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]; ++i) {
+		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			int ptr = (i*imgData.w + j)*imgData.compPerPixel;
-			intensity = manager->calculateIntensity(CoordinateUsingFilter, CopyPixel, i, j);
+			intensity = manager->calculateIntensity(CoordinateUsingFilter, imgData, i, j);
 			imgData.pixels[ptr + 0] = intensity[0];
 			imgData.pixels[ptr + 1] = intensity[1];
 			imgData.pixels[ptr + 2] = intensity[2];
