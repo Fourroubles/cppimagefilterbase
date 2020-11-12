@@ -55,7 +55,7 @@ void Blur::filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
 void Edge::filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
 	ManagerFilter* manager = new ManagerEdgeFilter();
 	CopyPixel = ManagerFilter::copyImage(imgData);
-	for (int i = CoordinateUsingFilter[0]; i < CoordinateUsingFilter[1]+1; ++i) {
+	for (int i = CoordinateUsingFilter[0]-1; i < CoordinateUsingFilter[1]; ++i) {
 		for (int j = CoordinateUsingFilter[2]; j < CoordinateUsingFilter[3]; ++j) {
 			int ptr = (i*imgData.w + j)*imgData.compPerPixel;
 			intensity = manager->calculateIntensity(CoordinateUsingFilter, CopyPixel, i, j);
