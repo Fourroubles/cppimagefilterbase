@@ -35,10 +35,10 @@ void configWork::detectFilter(std::vector<Data> massData) {
 		}
 		else if (massData[i].FilterName == "Blur")
 			name.push_back(BLUR_FILTER);
-		else if (massData[i].FilterName == "Edge") {
+		/*else if (massData[i].FilterName == "Edge") {
 			name.push_back(BLACK_WHITE_FILTER);
 			name.push_back(EDGE_FILTER);
-		}
+		}*/
 	}
 }
 
