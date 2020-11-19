@@ -35,10 +35,10 @@ void configWork::detectFilter(std::vector<Data> massData) {
 		}
 		else if (massData[i].FilterName == "Blur")
 			name.push_back(BLUR_FILTER);
-		/*else if (massData[i].FilterName == "Edge") {
+		else if (massData[i].FilterName == "Edge") {
 			name.push_back(BLACK_WHITE_FILTER);
 			name.push_back(EDGE_FILTER);
-		}*/
+		}
 	}
 }
 
@@ -52,7 +52,7 @@ void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
 	for (unsigned int i = 0, j = 0; i < typeFilter.size(); ++i, ++j) {
 		typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
 		if (name[i] == BLACK_WHITE_FILTER) {
-			--j;
+			j--;
 		}
 	}
 }
