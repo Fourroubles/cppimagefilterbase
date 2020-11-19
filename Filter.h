@@ -26,7 +26,7 @@ public:
 class Threshold : public Filter {
 private:
 	  image_data CopyPixel;
-	  std::vector<int> intensity;
+	  std::vector<unsigned char> intensity;
 public:
 	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter)  override;
 	~Threshold() { delete[] CopyPixel.pixels; };
@@ -35,7 +35,7 @@ public:
 class Blur : public Filter {
 private:
 	image_data CopyPixel;
-	std::vector<int> intensity;
+	std::vector<unsigned char> intensity;
 public:
 	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) override;
 	~Blur() { delete[] CopyPixel.pixels; };
@@ -44,7 +44,7 @@ public:
 class Edge : public Filter {
 private:
 	image_data CopyPixel;
-	std::vector<int> intensity;
+	std::vector<unsigned char> intensity;
 public:
 	void filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) override;
 	~Edge() { delete[] CopyPixel.pixels; };

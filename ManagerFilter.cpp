@@ -14,8 +14,8 @@ image_data ManagerFilter::copyImage(image_data &imgData) {
 	return CopyPixel;
 }
 
-std::vector<int> ManagerThresholdFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
-	std::vector<int> intensity;
+std::vector<unsigned char> ManagerThresholdFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
+	std::vector<unsigned char> intensity;
 	for (int k = i - 2; k <= i + 2; ++k) {
 		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
 			for (int h = j - 2; h <= j + 2; ++h) {
@@ -29,8 +29,8 @@ std::vector<int> ManagerThresholdFilter::calculateIntensity(std::vector<int> Coo
 	return intensity;
 }
 
-std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
-	std::vector<int> intensity;
+std::vector<unsigned char> ManagerBlurFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
+	std::vector<unsigned char> intensity;
 	int red = 0, green = 0, blue = 0;
 	for (int k = i - 1; k <= i + 1; ++k) {
 		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
@@ -56,8 +56,8 @@ std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> Coordina
 	return intensity;
 }
 
-std::vector<int> ManagerEdgeFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
-	std::vector<int> intensity;
+std::vector<unsigned char> ManagerEdgeFilter::calculateIntensity(std::vector<int> CoordinateUsingFilter, image_data &imgData, int  i, int j) {
+	std::vector<unsigned char> intensity;
 	intensity.push_back(0);
 	for (int k = i - 1; k <= i + 1; ++k) {
 		if (k >= CoordinateUsingFilter[0] && k < CoordinateUsingFilter[1]) {
