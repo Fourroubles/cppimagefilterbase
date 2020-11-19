@@ -46,7 +46,7 @@ void Blur::filter(image_data &imgData, std::vector<int> CoordinateUsingFilter) {
 			intensity = manager->calculateIntensity(CoordinateUsingFilter, CopyPixel, i, j);
 			imgData.pixels[ptr + 0] = (unsigned char)intensity[0];
 			imgData.pixels[ptr + 1] = (unsigned char)intensity[0];
-			imgData.pixels[ptr + 2] = (unsigned char)intensity[2];
+			imgData.pixels[ptr + 2] = (unsigned char)intensity[0];
 		}
 	}
 }
