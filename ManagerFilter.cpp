@@ -46,9 +46,12 @@ std::vector<int> ManagerBlurFilter::calculateIntensity(std::vector<int> Coordina
 
 		}
 	}
-	intensity.push_back(red/9);
-	intensity.push_back(green/9);
-	intensity.push_back(blue/9);
+	red /= 9;
+	green /= 9;
+	blue /= 9;
+	intensity.push_back(red);
+	intensity.push_back(green);
+	intensity.push_back(blue);
 
 	return intensity;
 }
