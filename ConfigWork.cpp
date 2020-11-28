@@ -52,7 +52,7 @@ void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
 	for (unsigned int i = 0, j = 0; i < typeFilter.size(); ++i, ++j) {
 		
 		typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
-		if (j == 1 || j == 3)
+		if (i == 1 || i == 3)
 			j--;
 	}
 }
