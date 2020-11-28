@@ -49,12 +49,11 @@ void configWork::filingFilter() {
 }
 
 void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
-	std::vector<int> data;
-	for (unsigned int i = 0; i < typeFilter.size(); ++i) {
-		if (name[i] != THRESHOLD_FILTER || name[i] != EDGE_FILTER) {
-			data = ColcualteCoordinate(MassData[i], imgData);
-		}
-		typeFilter[i]->filter(imgData, data);
+	for (unsigned int i = 0, j = 0; i < typeFilter.size(); ++i, ++j) {
+		
+		typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
+		if (j == 1 || j == 3)
+			j--;
 	}
 }
 
