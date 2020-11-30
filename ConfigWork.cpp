@@ -29,10 +29,10 @@ void configWork::detectFilter(std::vector<Data> massData) {
 	for (unsigned int i = 0; i < massData.size(); ++i) {
 		if (massData[i].FilterName == "Red")
 			name.push_back(RED_FILTER);
-		if (massData[i].FilterName == "Threshold") {
+	/*	if (massData[i].FilterName == "Threshold") {
 			name.push_back(BLACK_WHITE_FILTER);
 			name.push_back(THRESHOLD_FILTER);
-		}
+		}*/
 		if (massData[i].FilterName == "Blur")
 			name.push_back(BLUR_FILTER);
 		if (massData[i].FilterName == "Edge") {
