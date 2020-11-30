@@ -49,7 +49,9 @@ void configWork::filingFilter() {
 }
 
 void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
-	for (unsigned int i = 0, j = 0; i < typeFilter.size(); ++i, j=i) {
+	unsigned int j = 0;
+	for (unsigned int i = 0; i < typeFilter.size(); ++i) {
+		j = i;
 		if (name[i - 1] == BLACK_WHITE_FILTER && i!=0)
 			j -= 1;
 		typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
