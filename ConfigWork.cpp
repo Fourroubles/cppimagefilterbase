@@ -49,19 +49,9 @@ void configWork::filingFilter() {
 }
 
 void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
-	/*for (unsigned int i = 0, j = 0; i < typeFilter.size(); ++i, ++j) {
-		typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
-		if (name[i] == BLACK_WHITE_FILTER) {
-			typeFilter[i+1]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
-			i++;
-		}
-	}*/
-	typeFilter[0]->filter(imgData, ColcualteCoordinate(MassData[0], imgData));
-	typeFilter[1]->filter(imgData, ColcualteCoordinate(MassData[1], imgData));
-	typeFilter[2]->filter(imgData, ColcualteCoordinate(MassData[1], imgData));
-	typeFilter[3]->filter(imgData, ColcualteCoordinate(MassData[2], imgData));
-	typeFilter[4]->filter(imgData, ColcualteCoordinate(MassData[2], imgData));
-	typeFilter[5]->filter(imgData, ColcualteCoordinate(MassData[3], imgData));
+	for (unsigned int i = 0, j = 1; i < typeFilter.size(); ++i, ++j) {
+		typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j/2], imgData));
+	}
 }
 
 int configWork::ColcualteUpCoordinate(image_data &imgData, Data ConfigCoordinate) {
