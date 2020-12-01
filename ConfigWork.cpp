@@ -52,8 +52,8 @@ void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
 	for (unsigned int i = 0, j = 0; i < typeFilter.size(); ++i, ++j) {
 		typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
 		if (name[i] == BLACK_WHITE_FILTER) {
-			++i;
-			typeFilter[i]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
+			typeFilter[i+1]->filter(imgData, ColcualteCoordinate(MassData[j], imgData));
+			i++;
 		}
 	}
 }
