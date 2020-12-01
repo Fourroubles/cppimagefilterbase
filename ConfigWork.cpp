@@ -35,10 +35,10 @@ void configWork::detectFilter(std::vector<Data> massData) {
 		}
 		if (massData[i].FilterName == "Blur")
 			name.push_back(BLUR_FILTER);
-		/*if (massData[i].FilterName == "Edge") {
-			name.push_back(BLACK_WHITE_FILTER);
+		if (massData[i].FilterName == "Edge") {
+			//name.push_back(BLACK_WHITE_FILTER);
 			name.push_back(EDGE_FILTER);
-		}*/
+		}
 	}
 }
 
@@ -55,12 +55,6 @@ void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
 			--j;
 		}
 	}
-
-	Filter* rr;
-	rr = new BlackWhite;
-	rr->filter(imgData, ColcualteCoordinate(MassData[3], imgData));
-	rr = new Edge;
-	rr->filter(imgData, ColcualteCoordinate(MassData[3], imgData));
 }
 
 int configWork::ColcualteUpCoordinate(image_data &imgData, Data ConfigCoordinate) {
