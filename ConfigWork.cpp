@@ -60,7 +60,7 @@ void configWork::usingFilter(std::vector<Data> MassData, image_data &imgData) {
 	typeFilter[1]->filter(imgData, ColcualteCoordinate(MassData[1], imgData));
 	typeFilter[2]->filter(imgData, ColcualteCoordinate(MassData[1], imgData));
 	typeFilter[3]->filter(imgData, ColcualteCoordinate(MassData[2], imgData));
-	typeFilter[4]->filter(imgData, ColcualteCoordinate(MassData[3], imgData));
+	typeFilter[4]->filter(imgData, ColcualteCoordinate(MassData[2], imgData));
 	typeFilter[5]->filter(imgData, ColcualteCoordinate(MassData[3], imgData));
 }
 
